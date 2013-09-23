@@ -1,4 +1,4 @@
 Collection
-==========
+=======
 
-Basic methods for collections
+Collection methods for the Eden PHP Library
