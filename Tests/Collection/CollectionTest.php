@@ -7,7 +7,7 @@
  * distributed with this package.
  */
 
-class Eden_Tests_Collection_CollectionTest extends \PHPUnit_Framework_TestCase
+class Eden_Collection_Tests_Collection_CollectionTest extends \PHPUnit_Framework_TestCase
 {
     public function testAdd() 
     {

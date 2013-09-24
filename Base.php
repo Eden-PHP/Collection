@@ -93,7 +93,7 @@ class Base extends CoreBase implements \ArrayAccess, \Iterator, \Serializable, \
 
             //just call the method
             //let the model worry about the rest
-            $row->call($name, $args);
+            $row->callArray($name, $args);
         }
 		
 		
