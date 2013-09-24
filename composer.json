@@ -1,5 +1,5 @@
 {
-    "name": "eden-php/collection",
+    "name": "eden/collection",
     "type": "library",
     "description": "Eden generic collection component",
     "keywords": ["eden", "library"],
