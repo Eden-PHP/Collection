@@ -7,7 +7,7 @@
  * distributed with this package.
  */
 
-class Eden_Collection_Tests_Collection_CollectionTest extends \PHPUnit_Framework_TestCase
+class EdenCollectionIndexTest extends PHPUnit_Framework_TestCase
 {
     public function testAdd() 
     {
@@ -15,7 +15,7 @@ class Eden_Collection_Tests_Collection_CollectionTest extends \PHPUnit_Framework
             ->add(array('name' => 'John', 'age' => 31))
             ->add(array('name' => 'Jane', 'age' => 28));
 
-        $this->assertInstanceOf('Eden\\Collection\\Base', $collection);
+        $this->assertInstanceOf('Eden\\Collection\\Index', $collection);
         $this->assertEquals('[{"name":"John","age":31},{"name":"Jane","age":28}]', (string) $collection);
     }
 
@@ -43,7 +43,7 @@ class Eden_Collection_Tests_Collection_CollectionTest extends \PHPUnit_Framework
 
 
         $this->assertEquals(3, $collection->count());
-        $this->assertInstanceOf('Eden\\Collection\\Base', $collection);
+        $this->assertInstanceOf('Eden\\Collection\\Index', $collection);
 
         $this->assertEquals(
             '[{"name":"Jane","age":28},{"name":"Nick","age":24},{"name":"Fred","age":26}]',
@@ -89,7 +89,7 @@ class Eden_Collection_Tests_Collection_CollectionTest extends \PHPUnit_Framework
                 array('name' => 'John', 'age' => 31),
                 array('name' => 'Jane', 'age' => 28)));
 
-        $this->assertInstanceOf('Eden\\Collection\\Base', $collection);
+        $this->assertInstanceOf('Eden\\Collection\\Index', $collection);
         $this->assertEquals('[{"name":"John","age":31},{"name":"Jane","age":28}]', (string) $collection);
     }
 

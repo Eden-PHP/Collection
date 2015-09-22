@@ -9,8 +9,6 @@
 
 namespace Eden\Collection;
 
-use Eden\Core\Base as CoreBase;
-
 /**
  * The base class for all classes wishing to integrate with Eden.
  * Extending this class will allow your methods to seemlessly be
@@ -18,17 +16,17 @@ use Eden\Core\Base as CoreBase;
  * loading patterns.
  *
  * @vendor Eden
- * @package Collection
+ * @package collection
  * @author Christian Blanquera cblanquera@openovate.com
  */
-class Base extends CoreBase implements \ArrayAccess, \Iterator, \Serializable, \Countable
+class Index extends Base implements \ArrayAccess, \Iterator, \Serializable, \Countable
 {
 
 	const ERROR_NOT_SUB_MODEL = 'Class %s is not a child of Eden\\Model\\Base';
 
     const FIRST = 'first';
     const LAST = 'last';
-    const MODEL = 'Eden\\Model\\Base';
+    const MODEL = 'Eden\\Model\\Index';
 
     protected $list = array();
     protected $model = self::MODEL;
@@ -153,7 +151,7 @@ class Base extends CoreBase implements \ArrayAccess, \Iterator, \Serializable, \
      * Adds a row to the collection
      *
      * @param array|Eden\Collection\Model
-     * @return Eden\Collection\Block
+     * @return this
      */
     public function add($row = array()) 
     {
@@ -220,7 +218,7 @@ class Base extends CoreBase implements \ArrayAccess, \Iterator, \Serializable, \
      * Loops through returned result sets
      *
      * @param *callable
-     * @return Eden\Collection\Block
+     * @return this
      */
     public function each($callback) 
     {
@@ -384,7 +382,7 @@ class Base extends CoreBase implements \ArrayAccess, \Iterator, \Serializable, \
      * Sets data
      *
 	 * @param array
-     * @return Eden\Collection\Block
+     * @return this
      */
     public function set(array $data = array()) 
     {
@@ -399,14 +397,14 @@ class Base extends CoreBase implements \ArrayAccess, \Iterator, \Serializable, \
      * Sets default model
      *
      * @param *string
-     * @return Eden\Collection\Block
+     * @return this
      */
     public function setModel($model) 
     {
         //argument 1 must be a string
 		Argument::i()->test(1, 'string');
 
-        if(!is_subclass_of($model, 'Eden\\Collection\\Model')) {
+        if(!is_subclass_of($model, 'Eden\\Model\\Index')) {
             Exeption::i()
 				->setMessage(self::ERROR_NOT_SUB_MODEL)
                 ->addVariable($model)
@@ -422,7 +420,7 @@ class Base extends CoreBase implements \ArrayAccess, \Iterator, \Serializable, \
      * sets data using the Serializable interface
      *
      * @param *string
-     * @return Eden\Collection\Block
+     * @return this
      */
     public function unserialize($data) 
     {
