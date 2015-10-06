@@ -13,9 +13,12 @@
     ],
     "require": {
         "php": ">=5.3.1",
-		"eden/model": "4.x-dev"
+		"eden/core": "4.x-dev",
+		"eden/string": "4.x-dev",
+		"eden/array": "4.x-dev",
+        "eden/model": "4.x-dev"
     },
     "autoload": {
-         "psr-4": { "Eden\\Collection\\": "/src" }
+         "psr-4": { "Eden\\Collection\\": "src/" }
     }
 }
