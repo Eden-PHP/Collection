@@ -1,9 +1,9 @@
 <?php //-->
-/*
- * This file is part of the Collection package of the Eden PHP Library.
- * (c) 2013-2014 Openovate Labs
+/**
+ * This file is part of the Eden PHP Library.
+ * (c) 2014-2016 Openovate Labs
  *
- * Copyright and license information can be found at LICENSE
+ * Copyright and license information can be found at LICENSE.txt
  * distributed with this package.
  */
 
@@ -15,27 +15,49 @@ namespace Eden\Collection;
  * overloaded and overrided as well as provide some basic class
  * loading patterns.
  *
- * @vendor Eden
- * @package collection
- * @author Christian Blanquera cblanquera@openovate.com
+ * @vendor   Eden
+ * @package  Collection
+ * @author   Christian Blanquera <cblanquera@openovate.com>
+ * @standard PSR-2
  */
 class Index extends Base implements \ArrayAccess, \Iterator, \Serializable, \Countable
 {
-
+    /**
+     * @const string ERROR_NOT_SUB_MODEL Error template placeholder
+     */
     const ERROR_NOT_SUB_MODEL = 'Class %s is not a child of Eden\\Model\\Base';
-
+       
+    /**
+     * @const string FIRST Flag that designates the first in the collection
+     */
     const FIRST = 'first';
+       
+    /**
+     * @const string LAST Flag that designates the last in the collection
+     */
     const LAST = 'last';
+       
+    /**
+     * @const string MODEL The name of the default model class to use when creating a new row
+     */
     const MODEL = 'Eden\\Model\\Index';
-
+       
+    /**
+     * @var array $list The raw collection list
+     */
     protected $list = array();
+       
+    /**
+     * @var string $model The name of the model class to use when creating a new row
+     */
     protected $model = self::MODEL;
 
     /**
      * The magic behind setN and getN
      *
-     * @param *string
-     * @param *array
+     * @param *string $name Name of method
+     * @param *array  $args Arguments to pass
+     *
      * @return mixed
      */
     public function __call($name, $args)
@@ -109,7 +131,8 @@ class Index extends Base implements \ArrayAccess, \Iterator, \Serializable, \Cou
     /**
      * Presets the collection
      *
-     * @param array
+     * @param *mixed $data The initial data
+     *
      * @return void
      */
     public function __construct(array $data = array())
@@ -120,9 +143,10 @@ class Index extends Base implements \ArrayAccess, \Iterator, \Serializable, \Cou
     /**
      * Allow a property for each row to be changed in one call
      *
-     * @param *string
-     * @param *mixed
-     * @return Eden\Collection\Collection
+     * @param *string $name  The name of the supposed property
+     * @param *mixed  $value The value of the supposed property
+     *
+     * @return void
      */
     public function __set($name, $value)
     {
@@ -150,8 +174,9 @@ class Index extends Base implements \ArrayAccess, \Iterator, \Serializable, \Cou
     /**
      * Adds a row to the collection
      *
-     * @param array|Eden\Collection\Model
-     * @return this
+     * @param array|object $row a row in the form of an array or accepted model
+     *
+     * @return Eden\Collection\Index
      */
     public function add($row = array())
     {
@@ -172,7 +197,7 @@ class Index extends Base implements \ArrayAccess, \Iterator, \Serializable, \Cou
     }
 
     /**
-     * returns size using the Countable interface
+     * Returns size using the Countable interface
      *
      * @return string
      */
@@ -184,8 +209,9 @@ class Index extends Base implements \ArrayAccess, \Iterator, \Serializable, \Cou
     /**
      * Removes a row and reindexes the collection
      *
-     * @param string|int
-     * @return string
+     * @param string|int $index The position in the collection to cut out
+     *
+     * @return Eden\Collection\Index
      */
     public function cut($index = self::LAST)
     {
@@ -217,8 +243,9 @@ class Index extends Base implements \ArrayAccess, \Iterator, \Serializable, \Cou
     /**
      * Loops through returned result sets
      *
-     * @param *callable
-     * @return this
+     * @param *function $callback The handler to call on each iteration
+     *
+     * @return Eden\Collection\Index
      */
     public function each($callback)
     {
@@ -235,7 +262,7 @@ class Index extends Base implements \ArrayAccess, \Iterator, \Serializable, \Cou
      * Returns the current item
      * For Iterator interface
      *
-     * @return void
+     * @return array|object
      */
     public function current()
     {
@@ -245,8 +272,9 @@ class Index extends Base implements \ArrayAccess, \Iterator, \Serializable, \Cou
     /**
      * Returns the row array
      *
-     * @param bool
-     * @return array
+     * @param bool $modfied Whether to get the modified or original version
+     *
+     * @return array|object
      */
     public function get($modified = true)
     {
@@ -288,7 +316,8 @@ class Index extends Base implements \ArrayAccess, \Iterator, \Serializable, \Cou
     /**
      * isset using the ArrayAccess interface
      *
-     * @param *scalar|null|bool
+     * @param *scalar|null|bool $offset The key to test if exists
+     *
      * @return bool
      */
     public function offsetExists($offset)
@@ -302,8 +331,9 @@ class Index extends Base implements \ArrayAccess, \Iterator, \Serializable, \Cou
     /**
      * returns data using the ArrayAccess interface
      *
-     * @param *scalar|null|bool
-     * @return bool
+     * @param *scalar|null|bool $offset The key to get
+     *
+     * @return mixed
      */
     public function offsetGet($offset)
     {
@@ -316,8 +346,9 @@ class Index extends Base implements \ArrayAccess, \Iterator, \Serializable, \Cou
     /**
      * Sets data using the ArrayAccess interface
      *
-     * @param *scalar|null|bool
-     * @param *mixed
+     * @param *scalar|null|bool $offset The key to set
+     * @param mixed             $value  The value the key should be set to
+     *
      * @return void
      */
     public function offsetSet($offset, $value)
@@ -344,8 +375,9 @@ class Index extends Base implements \ArrayAccess, \Iterator, \Serializable, \Cou
     /**
      * unsets using the ArrayAccess interface
      *
-     * @param *scalar|null|bool
-     * @return bool
+     * @param *scalar|null|bool $offset The key to unset
+     *
+     * @return void
      */
     public function offsetUnset($offset)
     {
@@ -382,6 +414,7 @@ class Index extends Base implements \ArrayAccess, \Iterator, \Serializable, \Cou
      * Sets data
      *
      * @param array
+     *
      * @return this
      */
     public function set(array $data = array())
@@ -396,8 +429,9 @@ class Index extends Base implements \ArrayAccess, \Iterator, \Serializable, \Cou
     /**
      * Sets default model
      *
-     * @param *string
-     * @return this
+     * @param mixed $value The initial set to modify
+     *
+     * @return Eden\Collection\Index
      */
     public function setModel($model)
     {
@@ -419,8 +453,9 @@ class Index extends Base implements \ArrayAccess, \Iterator, \Serializable, \Cou
     /**
      * sets data using the Serializable interface
      *
-     * @param *string
-     * @return this
+     * @param *string $data the set to enter in the class
+     *
+     * @return Eden\Collection\Index
      */
     public function unserialize($data)
     {
