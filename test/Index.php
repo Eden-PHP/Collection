@@ -9,6 +9,17 @@
 
 class EdenCollectionIndexTest extends PHPUnit_Framework_TestCase
 {
+    public function test__Call() 
+    {
+        $collection = eden('collection')
+            ->add(array('name' => 'John', 'age' => 31))
+            ->add(array('name' => 'Jane', 'age' => 28))
+			->copy('name', 'name_2');
+		
+        $this->assertInstanceOf('Eden\\Collection\\Index', $collection);
+        $this->assertEquals('[{"name":"John","age":31,"name_2":"John"},{"name":"Jane","age":28,"name_2":"Jane"}]', (string) $collection);
+    }
+	
     public function testAdd() 
     {
         $collection = eden('collection')
